@@ -11,9 +11,15 @@ An access token can carry its information **by value** (a self-contained token, 
 
 ## How each is validated
 
-```text
-Self-contained:  API ── verify signature with cached JWKS, check iss/aud/exp ──> decision
-Opaque:          API ── POST /introspect (token) ──> Authorization server ──> { active, sub, scope… }
+```mermaid
+flowchart LR
+    subgraph self["Self-contained"]
+        api1["API"] -->|"verify signature with cached JWKS, check iss / aud / exp"| decision["decision"]
+    end
+    subgraph opaque["Opaque"]
+        api2["API"] -->|"POST /introspect (token)"| as1["Authorization server"]
+        as1 -->|"active, sub, scope …"| api2
+    end
 ```
 
 ## Characteristics
@@ -39,10 +45,12 @@ Opaque:          API ── POST /introspect (token) ──> Authorization serve
 
 **Phantom token.** Clients receive an opaque token. An API gateway introspects it, asking for a JWT, and forwards that JWT to internal services. Outside, tokens reveal nothing and can be revoked; inside, services validate locally.
 
-```text
-Client ──opaque──> Gateway ──introspect──> AS
-                     │  (receives JWT)
-                     └──JWT──> internal APIs (local validation)
+```mermaid
+flowchart LR
+    client["Client"] -->|opaque| gateway["Gateway"]
+    gateway -->|introspect| as["AS"]
+    as -.->|"gateway receives JWT"| gateway
+    gateway -->|"JWT (local validation)"| apis["internal APIs"]
 ```
 
 **Split token.** The token is a JWT, but the client receives only part of it (for example, the signature), and the gateway reconstructs the full JWT from a cache. This avoids an introspection call per request.

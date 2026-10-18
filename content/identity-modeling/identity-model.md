@@ -27,13 +27,14 @@ This is an illustrative domain model. It is not an industry-mandated database sc
 
 Keeping these distinct helps explain why a policy change can affect access without changing Maya's employment record.
 
-```text
-Subject ── has ──> Affiliation
-   │
-   ├── represented by ──> Account ── exists in ──> System
-   │
-   └── receives ──> Assignment ── grants ──> Entitlement
-                         └── limited to ──> Resource scope
+```mermaid
+flowchart LR
+    subject["Subject"] -->|has| affiliation["Affiliation"]
+    subject -->|represented by| account["Account"]
+    account -->|exists in| system["System"]
+    subject -->|receives| assignment["Assignment"]
+    assignment -->|grants| entitlement["Entitlement"]
+    assignment -->|limited to| scope["Resource scope"]
 ```
 
 ## Choose stable identifiers

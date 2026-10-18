@@ -27,13 +27,19 @@ The core OAuth 2.0 framework is extended by a family of specifications. Each add
 
 ## Device authorization grant (RFC 8628)
 
-```text
-1. Device → POST /device_authorization (client_id, scope)
-2. Device ← { device_code, user_code: "WDJB-MJHT", verification_uri, verification_uri_complete?, expires_in, interval }
-3. Device shows: "Go to https://login.example.test/device and enter WDJB-MJHT" (or a QR code)
-4. User signs in and approves on a phone or computer
-5. Device polls POST /token grant_type=urn:ietf:params:oauth:grant-type:device_code&device_code=…
-      ← authorization_pending | slow_down | access_denied | expired_token | tokens
+```mermaid
+sequenceDiagram
+    participant D as Device
+    participant U as User (phone or computer)
+    participant AS as Authorization server
+    D->>AS: 1. POST /device_authorization with client_id, scope
+    AS-->>D: 2. device_code, user_code WDJB-MJHT, verification_uri, optional verification_uri_complete, expires_in, interval
+    Note over D: 3. Shows "Go to https://login.example.test/device and enter WDJB-MJHT" or a QR code
+    U->>AS: 4. Signs in and approves
+    loop Polling at the given interval
+        D->>AS: 5. POST /token with grant_type=urn:ietf:params:oauth:grant-type:device_code
+        AS-->>D: authorization_pending, slow_down, access_denied, expired_token, or tokens
+    end
 ```
 
 The device must respect the polling `interval` and increase it on `slow_down`.

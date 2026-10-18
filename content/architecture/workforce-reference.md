@@ -10,17 +10,17 @@ This vendor-neutral example supports employees and contractors accessing busines
 
 ## Logical design
 
-```text
-HR system ──────────┐
-                   ├─> Lifecycle & governance ──> Provisioning connectors
-Contractor registry┘              │                         │
-                                 v                         v
-                          Identity directory         SaaS / internal apps
-                                 │                         ^
-                                 v                         │
-Employee / contractor ──> Identity provider ── federation ──┘
-
-Audit events from every layer ──> Monitoring & investigation
+```mermaid
+flowchart TD
+    hr["HR system"] --> gov["Lifecycle & governance"]
+    registry["Contractor registry"] --> gov
+    gov --> connectors["Provisioning connectors"]
+    gov --> directory["Identity directory"]
+    connectors --> apps["SaaS / internal apps"]
+    directory --> idp["Identity provider"]
+    people["Employee / contractor"] --> idp
+    idp -->|federation| apps
+    audit["Audit events from every layer"] --> monitoring["Monitoring & investigation"]
 ```
 
 The directory and identity provider may be part of one service. Governance and provisioning can also share a platform. Their responsibilities should remain explicit.

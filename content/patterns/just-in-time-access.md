@@ -11,10 +11,12 @@ Standing access is access that exists whether or not anyone is using it. Every s
 
 ## The pattern
 
-```text
-Eligible ──request + justification──> Approved / auto-approved ──> Active (time-bound) ──expiry──> Eligible
-                                                  │
-                                         logged, monitored
+```mermaid
+flowchart LR
+    eligible["Eligible"] -->|"request + justification"| approved["Approved / auto-approved"]
+    approved --> active["Active (time-bound)"]
+    active -->|expiry| eligible
+    approved --- log["logged, monitored"]
 ```
 
 1. A person or workload is **eligible** for a role but does not hold it.

@@ -30,10 +30,17 @@ Security considerations:
 
 Kerberos version 5 authenticates users and services on a network using tickets issued by a trusted Key Distribution Center (KDC).
 
-```text
-1. User ──authenticates──> KDC (Authentication Service) ──> Ticket-Granting Ticket (TGT)
-2. User ──TGT + service name──> KDC (Ticket-Granting Service) ──> Service ticket
-3. User ──service ticket──> Service
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant AS as KDC (Authentication Service)
+    participant TGS as KDC (Ticket-Granting Service)
+    participant S as Service
+    U->>AS: 1. Authenticates
+    AS-->>U: Ticket-Granting Ticket (TGT)
+    U->>TGS: 2. TGT + service name
+    TGS-->>U: Service ticket
+    U->>S: 3. Service ticket
 ```
 
 The user's password is used once to obtain the TGT; afterwards, tickets prove identity to services without resending the password. Services are identified by service principal names (SPNs). This is what enables seamless single sign-on inside a Windows domain.

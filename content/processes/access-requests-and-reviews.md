@@ -18,9 +18,12 @@ Avoid showing only an opaque group name. A reviewer should understand what joini
 
 An illustrative request lifecycle is:
 
-```text
-Requested → Policy evaluated → Approved → Applying → Verified
-                     └─> Rejected          └─> Failed / Needs action
+```mermaid
+flowchart LR
+    requested["Requested"] --> evaluated["Policy evaluated"]
+    evaluated --> approved["Approved"] --> applying["Applying"] --> verified["Verified"]
+    evaluated --> rejected["Rejected"]
+    applying --> failed["Failed / Needs action"]
 ```
 
 An approved request is not evidence that the account was provisioned. Store fulfillment status and verify the target system's result.

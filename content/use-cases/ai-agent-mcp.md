@@ -22,15 +22,21 @@ The MCP authorization specification builds on OAuth 2.1 and the discovery standa
 
 ## Discovery and authorization
 
-```text
-1. Agent → MCP server: request without a token
-2. MCP server → 401  WWW-Authenticate: Bearer resource_metadata="https://tickets.example.test/.well-known/oauth-protected-resource"
-3. Agent fetches Protected Resource Metadata → authorization_servers: ["https://login.example.test"]
-4. Agent fetches authorization server metadata (RFC 8414 / OIDC Discovery)
-5. Agent registers if needed (pre-registration or dynamic client registration)
-6. Authorization code + PKCE, with resource=https://tickets.example.test
-7. Maya signs in and consents: "AI Assistant wants to read and update your tickets"
-8. Agent calls the MCP server with an access token whose audience is the ticketing server
+```mermaid
+sequenceDiagram
+    participant A as Agent
+    participant M as MCP server (tickets)
+    participant AS as Authorization server (login)
+    A->>M: 1. Request without a token
+    M-->>A: 2. 401 with WWW-Authenticate Bearer resource_metadata="https://tickets.example.test/.well-known/oauth-protected-resource"
+    A->>M: 3. Fetch Protected Resource Metadata
+    M-->>A: authorization_servers: ["https://login.example.test"]
+    A->>AS: 4. Fetch authorization server metadata (RFC 8414 / OIDC Discovery)
+    A->>AS: 5. Register if needed (pre-registration or dynamic client registration)
+    A->>AS: 6. Authorization code + PKCE, with resource=https://tickets.example.test
+    Note over AS: 7. Maya signs in and consents: "AI Assistant wants to read and update your tickets"
+    AS-->>A: access token whose audience is the ticketing server
+    A->>M: 8. Call the MCP server with the access token
 ```
 
 See [discovery and metadata](../oauth-oidc/discovery-and-metadata.md) for steps 2 to 5.

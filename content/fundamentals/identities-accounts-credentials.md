@@ -30,12 +30,12 @@ An access token is a means of presenting authorization to a resource server. Rec
 
 ## One person, several representations
 
-```text
-Person: Maya
-  └─ Workforce identity: employee-1042
-       ├─ Directory account: account-81
-       ├─ Finance application account: account-357
-       └─ Administrative account: admin-1042
+```mermaid
+flowchart TD
+    person["Person: Maya"] --> identity["Workforce identity: employee-1042"]
+    identity --> directory["Directory account: account-81"]
+    identity --> finance["Finance application account: account-357"]
+    identity --> admin["Administrative account: admin-1042"]
 ```
 
 This example is an illustrative model, not a required schema. An application may use a federated identifier without provisioning a conventional local account.

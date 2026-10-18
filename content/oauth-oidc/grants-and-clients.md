@@ -25,14 +25,17 @@ A **grant** is the way a client obtains an access token. A **client type** descr
 
 ## Authorization code with PKCE
 
-```text
-1. Client creates code_verifier (random) and code_challenge = BASE64URL(SHA256(code_verifier))
-2. Browser → GET /authorize?response_type=code&client_id=…&redirect_uri=…
-                 &scope=…&state=…&code_challenge=…&code_challenge_method=S256
-3. User authenticates and consents at the authorization server
-4. Browser ← 302 redirect_uri?code=…&state=…&iss=…
-5. Client  → POST /token  grant_type=authorization_code&code=…&redirect_uri=…&code_verifier=…
-6. Client  ← { access_token, token_type, expires_in, refresh_token?, id_token? }
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant C as Client
+    participant AS as Authorization server
+    Note over C: 1. Creates code_verifier (random) and code_challenge = BASE64URL(SHA256(code_verifier))
+    B->>AS: 2. GET /authorize with response_type=code, client_id, redirect_uri, scope, state, code_challenge, code_challenge_method=S256
+    Note over B,AS: 3. The user authenticates and consents at the authorization server
+    AS-->>B: 4. 302 redirect_uri with code, state, iss
+    C->>AS: 5. POST /token with grant_type=authorization_code, code, redirect_uri, code_verifier
+    AS-->>C: 6. access_token, token_type, expires_in, optional refresh_token and id_token
 ```
 
 PKCE (RFC 7636) prevents a stolen authorization code from being redeemed by anyone who does not hold the `code_verifier`. Current guidance applies it to all clients, including confidential ones. Use `S256`; `plain` exists only for constrained legacy cases.

@@ -13,18 +13,21 @@ This walkthrough combines [PAR](../oauth-oidc/par-and-jar.md), [RAR](../oauth-oi
 
 ## The flow
 
-```text
-Budget app (confidential client, private_key_jwt, DPoP key)       Bank AS               Payments API
- 1. POST /par  authorization_details=[payment 45 EUR → Merchant A]
-               + PKCE + client_assertion + dpop_jkt  ───────────────>
-                                          <───────── request_uri (60 s)
- 2. Redirect Maya's browser → /authorize?client_id&request_uri
- 3.                     Maya authenticates (passkey) and sees "Pay 45.00 EUR to Merchant A"
- 4.                     <──── code + iss
- 5. POST /token code + code_verifier + client_assertion + DPoP proof ──>
-                                          <───────── DPoP-bound access token
-                                                      (authorization_details, cnf.jkt)
- 6. POST /payments  Authorization: DPoP …  DPoP: proof(ath) ──────────────────────────────> executes
+```mermaid
+sequenceDiagram
+    participant App as Budget app (confidential client, private_key_jwt, DPoP key)
+    participant M as Maya's browser
+    participant AS as Bank AS
+    participant API as Payments API
+    App->>AS: 1. POST /par with authorization_details=[payment 45 EUR → Merchant A], PKCE, client_assertion, dpop_jkt
+    AS-->>App: request_uri (60 s)
+    App->>M: 2. Redirect to /authorize?client_id&request_uri
+    M->>AS: 3. Maya authenticates (passkey) and sees "Pay 45.00 EUR to Merchant A"
+    AS-->>App: 4. code + iss via the browser
+    App->>AS: 5. POST /token with code, code_verifier, client_assertion, DPoP proof
+    AS-->>App: DPoP-bound access token (authorization_details, cnf.jkt)
+    App->>API: 6. POST /payments with Authorization: DPoP … and DPoP proof(ath)
+    Note over API: executes
 ```
 
 ## Why each piece is there

@@ -58,14 +58,14 @@ Account takeover, fake registrations, and promotion abuse are identity problems.
 
 ## Architecture sketch
 
-```text
-Browser / mobile app ──> CIAM service (registration, sign-in, recovery, consent)
-        │                         │                     │
-        │                     Risk engine          Profile store
-        v                         │
- Product APIs <── access tokens ──┘
-        │
- Product authorization (accounts, orders, tenants)
+```mermaid
+flowchart TD
+    client["Browser / mobile app"] --> ciam["CIAM service (registration, sign-in, recovery, consent)"]
+    client --> apis["Product APIs"]
+    ciam --> risk["Risk engine"]
+    ciam --> profile["Profile store"]
+    ciam -->|"access tokens"| apis
+    apis --> authz["Product authorization (accounts, orders, tenants)"]
 ```
 
 The CIAM service authenticates people and issues tokens. Product services still own business authorization, such as which orders a customer may view.

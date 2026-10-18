@@ -13,15 +13,11 @@ Workload identity federation replaces the stored key with a short-lived credenti
 
 ## How it works
 
-```text
-CI job ──(1) request OIDC token──> CI provider's token issuer
-   │                                   (signed JWT: repo, branch, environment)
-   │
-   └──(2) present token──> Cloud security token service
-                              │ validates issuer, audience, signature,
-                              │ and conditions on the subject claim
-                              v
-                     (3) short-lived cloud credentials (minutes to an hour)
+```mermaid
+flowchart TD
+    job["CI job"] -->|"1. request OIDC token"| issuer["CI provider's token issuer<br/>(signed JWT: repo, branch, environment)"]
+    job -->|"2. present token"| sts["Cloud security token service<br/>(validates issuer, audience, signature,<br/>and conditions on the subject claim)"]
+    sts --> creds["3. short-lived cloud credentials (minutes to an hour)"]
 ```
 
 1. The CI platform issues a signed OIDC token describing the job: the repository, the branch or tag, the environment, and the workflow.

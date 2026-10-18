@@ -19,10 +19,11 @@ A single-page application (SPA) runs in the browser, where any successful cross-
 
 ## How a BFF works
 
-```text
-Browser (SPA) ──cookie──> BFF (same site) ──access token──> APIs
-                           │
-                           └── OAuth client: code + PKCE, private_key_jwt, refresh tokens
+```mermaid
+flowchart LR
+    browser["Browser (SPA)"] -->|cookie| bff["BFF (same site)"]
+    bff -->|"access token"| apis["APIs"]
+    bff --- oauth["OAuth client: code + PKCE, private_key_jwt, refresh tokens"]
 ```
 
 1. The SPA calls `/bff/login`; the BFF starts an authorization code flow with PKCE as a confidential client.

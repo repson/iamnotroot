@@ -29,11 +29,15 @@ The **administrative flow** changes identities and access. A lifecycle event lea
 
 The **runtime flow** handles an actual request. A subject authenticates; an application receives an assertion or token; an enforcement point checks access to the requested resource.
 
-```text
-Administrative: Source → Lifecycle workflow → Provisioning → Application
-Runtime:        Subject → Identity provider → Application → Protected resource
-                                                  │
-                                            Policy decision
+```mermaid
+flowchart LR
+    subgraph admin["Administrative"]
+        source["Source"] --> workflow["Lifecycle workflow"] --> provisioning["Provisioning"] --> app1["Application"]
+    end
+    subgraph runtime["Runtime"]
+        subject["Subject"] --> idp["Identity provider"] --> app2["Application"] --> resource["Protected resource"]
+        app2 -.->|policy decision| app2
+    end
 ```
 
 The diagram shows responsibilities, not a mandatory network topology. Some requests use previously established sessions and do not contact the identity provider every time.

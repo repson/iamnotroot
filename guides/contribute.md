@@ -20,6 +20,8 @@ The site automatically generates the article route, topic listing, sidebar entry
 
 Start with the idea in plain language. Define an abbreviation the first time it matters. Separate a normative requirement from an implementation choice or illustrative example.
 
+Draw diagrams with ` ```mermaid ` fences (flowchart or sequenceDiagram); the site renders them as graphics. Keep ` ```text ` for literal examples such as tokens, headers, or endpoint URLs.
+
 Avoid presenting one vendor's behavior as a universal protocol guarantee. Explain the conditions and limits of a recommendation.
 
 ## Use inspectable sources

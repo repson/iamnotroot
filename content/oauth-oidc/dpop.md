@@ -11,14 +11,16 @@ A bearer token works for anyone who holds it. Demonstrating Proof of Possession 
 
 ## How it works
 
-```text
-1. Client generates a key pair (for example ES256) and keeps the private key.
-2. Token request:  POST /token  + header  DPoP: <proof JWT signed with the private key>
-3. AS issues:      { "access_token": "…", "token_type": "DPoP", … }
-                   The token carries cnf.jkt = SHA-256 thumbprint of the public key.
-4. API request:    Authorization: DPoP <access token>
-                   DPoP: <new proof for this method and URL, including ath>
-5. API checks:     proof signature, htm, htu, iat, jti, ath, and that the key thumbprint = cnf.jkt
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant AS as Authorization server
+    participant API as Resource server
+    Note over C: 1. Generates a key pair (for example ES256) and keeps the private key
+    C->>AS: 2. POST /token plus header DPoP: proof JWT signed with the private key
+    AS-->>C: 3. access_token with token_type DPoP, carrying cnf.jkt = SHA-256 thumbprint of the public key
+    C->>API: 4. Authorization: DPoP access token, plus a new proof for this method and URL including ath
+    API->>API: 5. Checks proof signature, htm, htu, iat, jti, ath, and that the key thumbprint equals cnf.jkt
 ```
 
 ## The proof JWT

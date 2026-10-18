@@ -20,12 +20,13 @@ As authorization rules grow, scattering `if` statements across services makes th
 
 These roles come from the XACML architecture and remain a useful vocabulary even when XACML itself is not used.
 
-```text
-Client ──> PEP (API) ── "may alice approve expense 204?" ──> PDP
-               │                                            │
-               │<───────────── permit / deny ──────────────┘
-               │                                            │
-           enforce                                   PIP (attributes)
+```mermaid
+flowchart LR
+    client["Client"] --> pep["PEP (API)"]
+    pep -->|"may alice approve expense 204?"| pdp["PDP"]
+    pdp -->|"permit / deny"| pep
+    pep -->|enforce| pep
+    pip["PIP (attributes)"] --- pdp
 ```
 
 ## What a decision request contains
