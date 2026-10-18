@@ -4,7 +4,7 @@ description: Registered JWT claims, ID token claims, access token claims, standa
 category: oauth-oidc
 order: 7
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [claims, JWT, ID token, access token, RFC 9068, cnf, act, standard claims, custom claims]
 ---
 A claim is a statement about a subject, expressed as a name–value pair. Claims appear in ID tokens, JWT access tokens, UserInfo responses, introspection responses, and logout and security event tokens. This page lists the ones you will meet most often and where each is defined.
@@ -39,8 +39,8 @@ A claim is a statement about a subject, expressed as a name–value pair. Claims
 
 | Claim | Meaning |
 | --- | --- |
-| `iss`, `exp`, `aud`, `sub`, `iat`, `jti` | Required. `aud` identifies the resource server(s). |
-| `client_id` | The client the token was issued to. |
+| `iss`, `exp`, `aud`, `sub`, `client_id`, `iat`, `jti` | Required. `aud` identifies the resource server(s). |
+| `client_id` | Required: the client the token was issued to. |
 | `scope` | Space-separated granted scopes. |
 | `auth_time`, `acr`, `amr` | Authentication information, when relevant to the API. |
 | `groups`, `roles`, `entitlements` | Authorization attributes, using the names from the SCIM core schema. |

@@ -3,7 +3,8 @@ title: A map of IAM standards
 description: Choose the right family of standards for authentication, authorization, and provisioning.
 category: standards
 order: 1
-updated: 2026-10-14
+level: Foundational
+updated: 2026-10-18
 tags: [standards, protocols, OAuth, OIDC, SAML, SCIM, WebAuthn, LDAP, JWT]
 ---
 IAM standards solve different problems. Before selecting one, describe the interaction: who is communicating, which trust relationship exists, and what result the recipient needs.
@@ -18,13 +19,13 @@ IAM standards solve different problems. Before selecting one, describe the inter
 | Accept tokens in an API and request step-up | RFC 6750, RFC 9470 | [Resource servers](../oauth-oidc/resource-servers.md) |
 | Bind tokens to a client key | DPoP, RFC 9449 | [DPoP](../oauth-oidc/dpop.md) |
 | Protect or enrich the authorization request | PAR, JAR, RAR | [PAR and JAR](../oauth-oidc/par-and-jar.md), [RAR](../oauth-oidc/rich-authorization-requests.md) |
-| Use OAuth from browsers and mobile apps | Browser-based apps draft, RFC 8252 | [BFF](../patterns/backend-for-frontend.md), [native apps](../patterns/native-apps.md) |
+| Use OAuth from browsers and mobile apps | RFC 10017 (browser-based apps), RFC 8252 | [BFF](../patterns/backend-for-frontend.md), [native apps](../patterns/native-apps.md) |
 | Manage browser sessions | HTTP cookies, RFC 6265 | [Cookies and sessions](../patterns/cookies-and-sessions.md) |
 | Exchange identity assertions, often for enterprise SSO | SAML 2.0 | [SAML](saml.md) |
 | Create and manage users and groups across systems | SCIM 2.0 | [SCIM](scim.md) |
 | Authenticate with public-key credentials on the web | WebAuthn / FIDO | [Modern authentication](modern-authentication.md) |
 | Represent and validate a set of claims | JWT, JWS, JWK | [JWT and token validation](../oauth-oidc/jwt-and-token-validation.md), [token claims](../oauth-oidc/token-claims.md) |
-| Sign in devices, exchange tokens, or bind tokens to a client | OAuth extensions | [Advanced OAuth](../oauth-oidc/oauth-extensions.md) |
+| Sign in devices, exchange tokens, or bind tokens to a client certificate | Device grant, token exchange, mutual TLS | [Advanced OAuth](../oauth-oidc/oauth-extensions.md) |
 | Access a directory or authenticate inside a Windows domain | LDAP, Kerberos | [LDAP and Kerberos](ldap-and-kerberos.md) |
 | Notify other systems of revocations and compromise | Shared Signals, CAEP, RISC | [Shared Signals](shared-signals.md) |
 | Ask a policy engine for an authorization decision | AuthZEN, XACML | [Policy engines](../patterns/policy-engines.md) |

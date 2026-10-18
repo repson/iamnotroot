@@ -37,7 +37,7 @@ src/
   pages/                    # Static routes generated from Markdown
   scripts/                  # Search, theme, and mobile navigation
   styles/                   # Site design and reading styles
-scripts/                    # Markdown link transformation
+scripts/                    # Remark plugins: link transformation and Mermaid diagrams
 tests/                      # Checks against the generated static site
 .github/workflows/          # Validation and GitHub Pages deployment
 ```
@@ -92,6 +92,8 @@ Use ordinary relative Markdown links:
 ```
 
 These links work on GitHub and are transformed to site routes during the build. Broken local links and heading fragments fail verification. Keep file paths lowercase and use hyphens. Avoid Markdown HTML or scripts from untrusted sources; article content is maintained as trusted source code.
+
+Draw diagrams in ` ```mermaid ` fences (`flowchart` or `sequenceDiagram`); the site renders them as graphics, and GitHub renders them too. Keep ` ```text ` for literal examples such as tokens, headers, or URLs.
 
 Drafts are excluded from the website, navigation, and search. A committed draft is still visible in a public GitHub repository.
 

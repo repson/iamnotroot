@@ -3,6 +3,7 @@ title: Onboarding an employee
 description: Walk a new employee from an approved people record to verified application access.
 category: use-cases
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [employee, onboarding, joiner, example, workflow]
 ---

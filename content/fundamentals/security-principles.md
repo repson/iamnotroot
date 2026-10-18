@@ -3,6 +3,7 @@ title: Principles for better access
 description: Least privilege, explicit decisions, separation of duties, and accountable ownership.
 category: fundamentals
 order: 4
+level: Foundational
 updated: 2026-10-14
 tags: [least privilege, separation of duties, deny by default, security]
 ---

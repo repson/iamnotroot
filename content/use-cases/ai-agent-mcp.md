@@ -4,7 +4,7 @@ description: How an AI agent discovers, authorizes, and calls a protected tool s
 category: use-cases
 order: 7
 level: Advanced
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [AI agents, MCP, Model Context Protocol, OAuth, RFC 9728, resource indicators, delegation, token exchange]
 ---
 Maya uses an AI assistant that can call tools. Her company exposes its ticketing system as a Model Context Protocol (MCP) server so the assistant can search and update tickets on her behalf. The agent must act with Maya's authority, limited to what she approved, and the ticketing system must know it is talking to an agent.
@@ -32,14 +32,25 @@ sequenceDiagram
     A->>M: 3. Fetch Protected Resource Metadata
     M-->>A: authorization_servers: ["https://login.example.test"]
     A->>AS: 4. Fetch authorization server metadata (RFC 8414 / OIDC Discovery)
-    A->>AS: 5. Register if needed (pre-registration or dynamic client registration)
-    A->>AS: 6. Authorization code + PKCE, with resource=https://tickets.example.test
+    AS-->>A: Endpoints, code_challenge_methods_supported, client_id_metadata_document_supported
+    Note over A,AS: 5. Identify the client: pre-registered client_id, a Client ID Metadata Document URL, or dynamic registration
+    A->>AS: 6. Authorization code + PKCE (S256), with resource=https://tickets.example.test
     Note over AS: 7. Maya signs in and consents: "AI Assistant wants to read and update your tickets"
     AS-->>A: access token whose audience is the ticketing server
     A->>M: 8. Call the MCP server with the access token
 ```
 
-See [discovery and metadata](../oauth-oidc/discovery-and-metadata.md) for steps 2 to 5.
+See [discovery and metadata](../oauth-oidc/discovery-and-metadata.md) for steps 2 to 4. The client must refuse to continue if the authorization server metadata does not advertise PKCE support.
+
+## How the agent identifies itself
+
+An MCP client and an MCP server often have no prior relationship, so the client needs a way to obtain a `client_id`. The specification lists three mechanisms, in this order of preference:
+
+1. **Pre-registration.** Use a `client_id` the client already holds for this authorization server.
+2. **Client ID Metadata Documents (CIMD).** The `client_id` is an HTTPS URL, such as `https://assistant.example.test/oauth/client.json`, that serves the client's metadata (`client_name`, `redirect_uris`, and so on). The authorization server fetches and validates the document, and advertises support with `client_id_metadata_document_supported`.
+3. **Dynamic client registration (RFC 7591).** Kept as a fallback for backwards compatibility.
+
+CIMD avoids creating a new registration for every client and server pair, but the authorization server takes on new risks. Fetching an arbitrary URL invites server-side request forgery, and a client using `localhost` redirect URIs can be impersonated by anyone who points at its metadata URL. Show the redirect host on the consent screen and apply a trust policy for unknown domains.
 
 ## Security rules that matter
 
@@ -64,7 +75,8 @@ See [discovery and metadata](../oauth-oidc/discovery-and-metadata.md) for steps 
 
 ## References
 
-- [Model Context Protocol: Authorization](https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization) — check for later revisions of the specification.
+- [Model Context Protocol: Authorization (2025-11-25)](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization) — check for later revisions of the specification.
+- [OAuth Client ID Metadata Document (IETF draft)](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/).
 - [OAuth 2.0 Protected Resource Metadata, RFC 9728](https://www.rfc-editor.org/rfc/rfc9728.html).
 - [Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707.html).
 - [OAuth 2.0 Token Exchange, RFC 8693](https://www.rfc-editor.org/rfc/rfc8693.html).

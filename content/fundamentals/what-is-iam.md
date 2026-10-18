@@ -3,6 +3,7 @@ title: What is IAM?
 description: The purpose, scope, and everyday questions of identity and access management.
 category: fundamentals
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [IAM, identity, access, introduction]
 ---

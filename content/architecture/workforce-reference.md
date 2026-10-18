@@ -3,6 +3,7 @@ title: A workforce reference architecture
 description: Connect a people source, governance, a central identity provider, and business applications.
 category: architecture
 order: 2
+level: Foundational
 updated: 2026-10-14
 tags: [workforce, reference architecture, HR, SSO, provisioning]
 ---

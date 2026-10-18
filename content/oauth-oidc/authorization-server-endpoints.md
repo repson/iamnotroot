@@ -4,7 +4,7 @@ description: A reference to the authorize, token, introspection, revocation, Use
 category: oauth-oidc
 order: 3
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [authorization endpoint, token endpoint, introspection, revocation, userinfo, JWKS, PAR, device authorization, dynamic registration, end session]
 ---
 An OAuth authorization server, or an OpenID provider, exposes a set of HTTP endpoints. Each is defined by a specific specification and advertised in the server's [metadata](discovery-and-metadata.md). The paths are not standardized; clients discover them.
@@ -53,7 +53,7 @@ grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
   "token_type": "Bearer",
   "expires_in": 600,
   "refresh_token": "8xLOxBtZp8",
-  "scope": "documents.read",
+  "scope": "openid documents.read",
   "id_token": "eyJhbGciOiJFUzI1NiJ9…"
 }
 ```

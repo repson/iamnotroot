@@ -4,7 +4,7 @@ description: Let identity providers and applications notify each other of sessio
 category: standards
 order: 10
 level: Advanced
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [Shared Signals, SSF, CAEP, RISC, SET, continuous access evaluation, revocation]
 ---
 After a sign-in, an application often has no idea that anything has changed. The identity provider may have disabled the account or detected a stolen session, but the application's session continues. Shared Signals addresses this gap by letting systems send each other security events.
@@ -20,7 +20,7 @@ After a sign-in, an application often has no idea that anything has changed. The
 | Push and poll delivery, RFC 8935 and RFC 8936 | How events are transported over HTTP. |
 | Subject identifiers, RFC 9493 | How an event names the user, device, or session concerned. |
 
-These specifications are developed in the OpenID Foundation's Shared Signals Working Group.
+SSF 1.0, CAEP 1.0, and RISC 1.0 were approved as OpenID Foundation Final Specifications in September 2025, so implementations can target a stable version. They are maintained by the Shared Signals Working Group.
 
 ## Example events
 
@@ -53,6 +53,9 @@ This complements [sessions, tokens, and revocation](../processes/sessions-and-re
 
 ## References
 
+- [OpenID Shared Signals Framework 1.0](https://openid.net/specs/openid-sharedsignals-framework-1_0-final.html).
+- [OpenID Continuous Access Evaluation Profile 1.0](https://openid.net/specs/openid-caep-1_0-final.html).
+- [OpenID RISC Profile 1.0](https://openid.net/specs/openid-risc-1_0-final.html).
 - [OpenID Shared Signals Working Group](https://openid.net/wg/sharedsignals/).
 - [Security Event Token, RFC 8417](https://www.rfc-editor.org/rfc/rfc8417.html).
 - [Push-Based SET Delivery, RFC 8935](https://www.rfc-editor.org/rfc/rfc8935.html) and [Poll-Based SET Delivery, RFC 8936](https://www.rfc-editor.org/rfc/rfc8936.html).

@@ -3,6 +3,7 @@ title: RBAC, ABAC, and relationships
 description: Compare three ways to express access policy and understand how they can work together.
 category: patterns
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [RBAC, ABAC, ReBAC, roles, policy, authorization]
 ---

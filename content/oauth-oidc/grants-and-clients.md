@@ -4,7 +4,7 @@ description: Choose the right OAuth grant, understand public and confidential cl
 category: oauth-oidc
 order: 2
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [OAuth, grant types, authorization code, PKCE, client credentials, refresh token, private_key_jwt, mTLS, public client]
 ---
 A **grant** is the way a client obtains an access token. A **client type** describes whether the client can keep a secret. A **client authentication method** is how a confidential client proves its identity at the token endpoint. These three choices determine most of an OAuth integration's security.
@@ -31,11 +31,14 @@ sequenceDiagram
     participant C as Client
     participant AS as Authorization server
     Note over C: 1. Creates code_verifier (random) and code_challenge = BASE64URL(SHA256(code_verifier))
-    B->>AS: 2. GET /authorize with response_type=code, client_id, redirect_uri, scope, state, code_challenge, code_challenge_method=S256
-    Note over B,AS: 3. The user authenticates and consents at the authorization server
-    AS-->>B: 4. 302 redirect_uri with code, state, iss
-    C->>AS: 5. POST /token with grant_type=authorization_code, code, redirect_uri, code_verifier
-    AS-->>C: 6. access_token, token_type, expires_in, optional refresh_token and id_token
+    C-->>B: 2. 302 to the authorization endpoint
+    B->>AS: 3. GET /authorize with response_type=code, client_id, redirect_uri, scope, state, code_challenge, code_challenge_method=S256
+    Note over B,AS: 4. The user authenticates and consents at the authorization server
+    AS-->>B: 5. 302 to redirect_uri with code, state, iss
+    B->>C: 6. GET redirect_uri with code, state, iss
+    Note over C: 7. Checks state and iss
+    C->>AS: 8. POST /token with grant_type=authorization_code, code, redirect_uri, code_verifier
+    AS-->>C: 9. access_token, token_type, expires_in, optional refresh_token and id_token
 ```
 
 PKCE (RFC 7636) prevents a stolen authorization code from being redeemed by anyone who does not hold the `code_verifier`. Current guidance applies it to all clients, including confidential ones. Use `S256`; `plain` exists only for constrained legacy cases.

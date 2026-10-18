@@ -3,7 +3,8 @@ title: The components of an IAM architecture
 description: Understand the responsibilities of directories, identity providers, governance, and enforcement.
 category: architecture
 order: 1
-updated: 2026-10-14
+level: Foundational
+updated: 2026-10-18
 tags: [architecture, directory, IdP, IGA, PAM, PDP, PEP]
 ---
 An IAM architecture is a set of responsibilities and trust relationships. One product may cover several responsibilities; several products may share one responsibility.
@@ -35,8 +36,9 @@ flowchart LR
         source["Source"] --> workflow["Lifecycle workflow"] --> provisioning["Provisioning"] --> app1["Application"]
     end
     subgraph runtime["Runtime"]
-        subject["Subject"] --> idp["Identity provider"] --> app2["Application"] --> resource["Protected resource"]
-        app2 -.->|policy decision| app2
+        subject["Subject"] --> idp["Identity provider"] --> app2["Application (PEP)"] --> resource["Protected resource"]
+        app2 -.->|decision request| pdp["Policy decision point"]
+        pdp -.->|permit / deny| app2
     end
 ```
 

@@ -4,7 +4,7 @@ description: Flows, scopes, request parameters, the UserInfo endpoint, subject t
 category: oauth-oidc
 order: 6
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [OIDC, OpenID Connect, flows, scopes, nonce, prompt, UserInfo, logout, back-channel logout, front-channel logout]
 ---
 [OpenID Connect](openid-connect.md) adds authentication to OAuth 2.0. This article covers the details you meet when integrating a real relying party (RP) with an OpenID provider (OP).
@@ -71,17 +71,17 @@ Logging out of an application, the OP, or every application are different operat
 | Mechanism | How it works | Reliability |
 | --- | --- | --- |
 | RP-Initiated Logout | The RP redirects the browser to `end_session_endpoint` with `id_token_hint` and `post_logout_redirect_uri`. | Ends the OP session; does not notify other RPs on its own. |
-| Front-Channel Logout | The OP renders hidden iframes that load each RP's logout URL. | Fragile: browsers increasingly block third-party cookies in iframes. |
+| Front-Channel Logout | The OP renders hidden iframes that load each RP's logout URL. | Fragile: several browsers block or partition third-party cookies in iframes. |
 | Back-Channel Logout | The OP sends a signed **logout token** directly to each RP's back-channel endpoint. | Most reliable; works without the browser. RPs must map `sid` or `sub` to sessions. |
 | Session Management | The RP polls the OP's session state through an iframe. | Fragile for the same third-party-cookie reasons. |
 
-A logout token is a JWT with `iss`, `aud`, `iat`, `jti`, an `events` claim containing `http://schemas.openid.net/event/backchannel-logout`, and `sid` and/or `sub`. It must not contain a `nonce`.
+A logout token is a JWT with `iss`, `aud`, `iat`, `exp`, `jti`, an `events` claim containing `http://schemas.openid.net/event/backchannel-logout`, and `sid` and/or `sub`. It must not contain a `nonce`. The specification recommends explicit typing with the header `typ: logout+jwt`, so a logout token cannot be confused with an ID token.
 
 A complete logout design usually combines RP-initiated logout for the user's action, back-channel logout to propagate it, and refresh-token revocation. See [sessions, tokens, and revocation](../processes/sessions-and-revocation.md).
 
 ## Silent renewal and third-party cookies
 
-Older SPAs used a hidden iframe with `prompt=none` to obtain new tokens using the OP's session cookie. Modern browsers block or partition third-party cookies, so this technique is unreliable. Use refresh tokens with rotation or a [backend for frontend](../patterns/backend-for-frontend.md) instead.
+Older SPAs used a hidden iframe with `prompt=none` to obtain new tokens using the OP's session cookie. Safari and Firefox block or partition third-party cookies by default, and Chrome users can opt to block them, so this technique is unreliable. Use refresh tokens with rotation or a [backend for frontend](../patterns/backend-for-frontend.md) instead.
 
 ## Certification
 

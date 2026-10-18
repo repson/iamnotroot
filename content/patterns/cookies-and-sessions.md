@@ -4,7 +4,7 @@ description: Design web sessions with secure cookies, server-side or stateless s
 category: patterns
 order: 8
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [cookies, sessions, session token, HttpOnly, SameSite, CSRF, session fixation, localStorage, third-party cookies]
 ---
 After a user signs in, a web application needs to remember them on every request. That is the job of the **session**, usually carried by a cookie. Session design determines how long access lasts, how it ends, and how exposed it is to theft.
@@ -65,7 +65,7 @@ Browsers attach cookies automatically, so another site can trigger requests with
 
 A user signed in through SSO has at least two sessions: one at the identity provider and one at each application. Their lifetimes are independent. Ending the application session does not end the identity provider session, and vice versa, unless logout is propagated. See [OpenID Connect in depth](../oauth-oidc/oidc-in-depth.md) and [sessions, tokens, and revocation](../processes/sessions-and-revocation.md).
 
-Browsers increasingly block third-party cookies. Patterns that rely on cookies inside cross-site iframes, such as silent token renewal and front-channel logout, become unreliable. Prefer same-site architectures and back-channel mechanisms.
+Safari and Firefox block or partition third-party cookies by default. Chrome still allows them, although users can block them in its settings. A design cannot assume either behavior, so patterns that rely on cookies inside cross-site iframes, such as silent token renewal and front-channel logout, are unreliable. Prefer same-site architectures and back-channel mechanisms.
 
 ## Session cookies versus access tokens
 

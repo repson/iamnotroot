@@ -3,6 +3,7 @@ title: Sessions, tokens, and revocation
 description: Understand why disabling an account may not immediately end every form of access.
 category: processes
 order: 3
+level: Intermediate
 updated: 2026-10-14
 tags: [session, revocation, logout, access token, refresh token, offboarding]
 ---
@@ -32,7 +33,7 @@ OAuth defines token revocation and token introspection as separate mechanisms. R
 
 Their behavior depends on implementation, caching, propagation, and which artifacts are checked. An application may need to terminate its own session independently.
 
-Event-based mechanisms close part of the gap. With [Shared Signals and CAEP](../standards/shared-signals.md), an identity provider can tell a cooperating application that a session was revoked, instead of waiting for tokens to expire. Sender-constrained tokens, described in [advanced OAuth](../oauth-oidc/oauth-extensions.md), reduce the value of a stolen token in the meantime.
+Event-based mechanisms close part of the gap. With [Shared Signals and CAEP](../standards/shared-signals.md), an identity provider can tell a cooperating application that a session was revoked, instead of waiting for tokens to expire. Sender-constrained tokens, such as [DPoP](../oauth-oidc/dpop.md) or mutual TLS, reduce the value of a stolen token in the meantime.
 
 ## Test the end of access
 

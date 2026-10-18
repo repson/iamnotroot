@@ -4,10 +4,10 @@ description: Keep tokens out of the browser with a BFF, and compare it with toke
 category: patterns
 order: 6
 level: Advanced
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [BFF, backend for frontend, SPA, browser-based apps, token handler, cookies, XSS, CSRF]
 ---
-A single-page application (SPA) runs in the browser, where any successful cross-site scripting (XSS) attack can read JavaScript-accessible data, including tokens. The IETF draft *OAuth 2.0 for Browser-Based Applications* compares three architectures and recommends the most secure one for sensitive applications: the backend for frontend.
+A single-page application (SPA) runs in the browser, where any successful cross-site scripting (XSS) attack can read JavaScript-accessible data, including tokens. *OAuth 2.0 for Browser-Based Applications* (RFC 10017, BCP 212) compares three architectures and strongly recommends the most secure one for business and sensitive applications: the backend for frontend.
 
 ## Three architectures
 
@@ -60,7 +60,7 @@ Examples, not endorsements: [Duende BFF](https://docs.duendesoftware.com/bff/) f
 
 ## References
 
-- [OAuth 2.0 for Browser-Based Applications (IETF draft)](https://datatracker.ietf.org/doc/draft-ietf-oauth-browser-based-apps/).
+- [OAuth 2.0 for Browser-Based Applications, RFC 10017 (BCP 212)](https://www.rfc-editor.org/rfc/rfc10017.html).
 - [OAuth 2.0 Security BCP, RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html).
 - [OWASP Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 - [OWASP HTML5 Security Cheat Sheet — local storage](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage).

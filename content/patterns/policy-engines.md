@@ -4,7 +4,7 @@ description: Separate authorization decisions from application code with decisio
 category: patterns
 order: 3
 level: Advanced
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [PDP, PEP, PIP, PAP, policy as code, OPA, Cedar, XACML, AuthZEN, externalized authorization]
 ---
 As authorization rules grow, scattering `if` statements across services makes them hard to review, test, and change consistently. Externalized authorization moves the decision into a dedicated component while the application keeps enforcing it.
@@ -23,15 +23,27 @@ These roles come from the XACML architecture and remain a useful vocabulary even
 ```mermaid
 flowchart LR
     client["Client"] --> pep["PEP (API)"]
-    pep -->|"may alice approve expense 204?"| pdp["PDP"]
+    pep -->|"may Maya approve expense EXP-204?"| pdp["PDP"]
     pdp -->|"permit / deny"| pep
-    pep -->|enforce| pep
+    pep -->|"enforced request"| resource["Protected resource"]
     pip["PIP (attributes)"] --- pdp
+    pap["PAP (policy repository)"] -->|publishes policy| pdp
 ```
 
 ## What a decision request contains
 
-A decision request generally describes four things: the **subject** (who), the **action** (what operation), the **resource** (which object), and the **context** (time, device, risk). The OpenID AuthZEN working group defines a standard Authorization API in exactly these terms so that enforcement points and decision engines from different vendors can interoperate.
+A decision request generally describes four things: the **subject** (who), the **action** (what operation), the **resource** (which object), and the **context** (time, device, risk). The OpenID AuthZEN working group defines a standard Authorization API in exactly these terms so that enforcement points and decision engines from different vendors can interoperate. Authorization API 1.0 was approved as a Final Specification in January 2026. An evaluation request is a JSON document posted to the PDP's evaluation endpoint (by default `/access/v1/evaluation`):
+
+```json
+{
+  "subject": { "type": "user", "id": "p-1042" },
+  "action": { "name": "approve" },
+  "resource": { "type": "expense", "id": "EXP-204" },
+  "context": { "amount": 1200, "currency": "EUR" }
+}
+```
+
+The PDP answers with a decision such as `{ "decision": true }`, optionally with context explaining the result.
 
 ## Common engines and languages
 
@@ -59,7 +71,7 @@ Policy that grants access deserves the same discipline as application code:
 
 **Data freshness.** The PDP is only as current as its attributes. A cached role that was removed an hour ago may still grant access.
 
-**Filtering lists.** “Which documents may Alice see?” is harder than “may Alice see document 7?”. Some engines support partial evaluation or list queries; otherwise the application must filter results.
+**Filtering lists.** “Which documents may Maya see?” is harder than “may Maya see document 7?”. Some engines support partial evaluation or list queries; otherwise the application must filter results.
 
 **Enforcement still lives in the application.** A PDP decides; if the application forgets to ask, nothing is enforced.
 
@@ -72,5 +84,5 @@ Combine this with [RBAC, ABAC, and relationships](rbac-and-abac.md) and [authori
 - [OASIS XACML 3.0](https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html).
 - [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/).
 - [Cedar policy language](https://www.cedarpolicy.com/).
-- [OpenID AuthZEN Working Group](https://openid.net/wg/authzen/).
+- [OpenID AuthZEN Authorization API 1.0](https://openid.net/specs/authorization-api-1_0.html) and the [AuthZEN Working Group](https://openid.net/wg/authzen/).
 - [NIST SP 800-162: Guide to ABAC](https://csrc.nist.gov/pubs/sp/800/162/upd2/final).

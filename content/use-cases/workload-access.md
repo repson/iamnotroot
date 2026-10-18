@@ -3,6 +3,7 @@ title: Giving a workload access to an API
 description: Apply identity, ownership, and least privilege to software acting without a person.
 category: use-cases
 order: 2
+level: Intermediate
 updated: 2026-10-14
 tags: [workload identity, service account, machine identity, API, client credentials]
 ---

@@ -3,6 +3,7 @@ title: Access requests and reviews
 description: Give access a business reason, an accountable decision, and a repeatable review.
 category: processes
 order: 2
+level: Foundational
 updated: 2026-10-14
 tags: [access request, approval, certification, access review, governance, IGA]
 ---

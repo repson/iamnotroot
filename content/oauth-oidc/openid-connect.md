@@ -3,6 +3,7 @@ title: OpenID Connect and application sign-in
 description: Learn what the identity layer adds to OAuth and why an ID token differs from an access token.
 category: oauth-oidc
 order: 5
+level: Foundational
 updated: 2026-10-14
 tags: [OIDC, OpenID Connect, ID token, claims, subject, SSO]
 ---

@@ -3,6 +3,7 @@ title: Joiner, mover, leaver
 description: Keep access aligned with the beginning, change, and end of an affiliation.
 category: processes
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [JML, lifecycle, onboarding, offboarding, rehire, contractor]
 ---

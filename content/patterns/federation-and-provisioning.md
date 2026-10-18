@@ -3,6 +3,7 @@ title: Federation and provisioning
 description: Separate the runtime trust relationship from the administrative account lifecycle.
 category: patterns
 order: 9
+level: Intermediate
 updated: 2026-10-14
 tags: [federation, provisioning, SSO, JIT, SCIM, integration]
 ---

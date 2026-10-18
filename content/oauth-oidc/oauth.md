@@ -3,6 +3,7 @@ title: OAuth 2.0 in plain language
 description: Understand delegated API access, the main actors, and the role of access tokens.
 category: oauth-oidc
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [OAuth, authorization, access token, PKCE, scopes, API]
 ---

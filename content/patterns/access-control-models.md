@@ -4,7 +4,7 @@ description: DAC, MAC, ACLs, capabilities, RBAC, ABAC, ReBAC, PBAC, and NGAC —
 category: patterns
 order: 2
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [access control models, DAC, MAC, ACL, capabilities, RBAC, ABAC, ReBAC, PBAC, NGAC, Zanzibar, authorization]
 ---
 An access control model is a way of expressing and deciding who may do what to which resource. Models differ in where the rules live, who can change them, and what questions they answer easily. Most real systems combine several.
@@ -48,7 +48,7 @@ These are two ways to store the same access matrix. An **ACL** is stored with th
 
 ## Role-based access control (RBAC)
 
-Permissions are assigned to roles, and roles to subjects. The NIST/ANSI model defines four levels: **flat** (core), **hierarchical** (roles inherit from others), **constrained** (separation-of-duty rules), and **symmetric** (permission–role review).
+Permissions are assigned to roles, and roles to subjects. The ANSI INCITS 359 standard defines four components: **Core RBAC** (user–role and permission–role assignment, and sessions; the only mandatory component), **Hierarchical RBAC** (roles inherit from others), **Static Separation of Duty** (conflicting roles cannot be assigned together), and **Dynamic Separation of Duty** (conflicting roles cannot be active in the same session). The earlier NIST model it grew from described four cumulative levels instead: flat, hierarchical, constrained, and symmetric.
 
 - **Advantages:** easy to understand, review, and audit; maps to job functions; widely supported.
 - **Drawbacks:** role explosion when access depends on context such as region, amount, or ownership; coarse-grained.

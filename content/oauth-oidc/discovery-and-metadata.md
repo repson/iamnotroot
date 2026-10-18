@@ -4,19 +4,21 @@ description: Authorization server metadata, OpenID discovery, Protected Resource
 category: oauth-oidc
 order: 4
 level: Intermediate
-updated: 2026-10-14
+updated: 2026-10-18
 tags: [discovery, metadata, RFC 8414, RFC 9728, protected resource metadata, well-known, dynamic client registration, RFC 7591]
 ---
 Metadata documents let clients configure themselves from a single URL instead of hardcoding endpoints, keys, and capabilities. Three documents matter: the authorization server's metadata, the protected resource's metadata, and the client's own registration metadata.
 
 ## Authorization server metadata
 
-An authorization server publishes a JSON document at a well-known location derived from its issuer identifier:
+An authorization server publishes a JSON document at a well-known location derived from its issuer identifier. The two specifications build that location differently when the issuer contains a path:
 
-| Specification | Location |
-| --- | --- |
-| OpenID Connect Discovery | `https://issuer/.well-known/openid-configuration` |
-| OAuth AS Metadata, RFC 8414 | `https://issuer/.well-known/oauth-authorization-server` |
+| Specification | Rule | Issuer `https://login.example.test` | Issuer `https://login.example.test/tenant1` |
+| --- | --- | --- | --- |
+| OpenID Connect Discovery | Append to the issuer. | `https://login.example.test/.well-known/openid-configuration` | `https://login.example.test/tenant1/.well-known/openid-configuration` |
+| OAuth AS Metadata, RFC 8414 | Insert between the host and the path. | `https://login.example.test/.well-known/oauth-authorization-server` | `https://login.example.test/.well-known/oauth-authorization-server/tenant1` |
+
+Multi-tenant servers often use issuers with paths, so a client that supports both specifications should try each construction rather than assume one. RFC 8414 §5 describes this compatibility case.
 
 ```json
 {

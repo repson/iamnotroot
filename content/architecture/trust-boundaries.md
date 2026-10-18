@@ -3,6 +3,7 @@ title: Trust boundaries and Zero Trust
 description: Treat identity signals as inputs to a resource-specific decision rather than blanket trust.
 category: architecture
 order: 3
+level: Intermediate
 updated: 2026-10-14
 tags: [Zero Trust, trust boundaries, policy, context, risk]
 ---

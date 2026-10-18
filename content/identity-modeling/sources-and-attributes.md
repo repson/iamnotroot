@@ -3,6 +3,7 @@ title: Sources, attributes, and correlation
 description: Decide which system owns a fact and how records are reliably connected.
 category: identity-modeling
 order: 2
+level: Foundational
 updated: 2026-10-14
 tags: [source of truth, authoritative source, correlation, attributes, data quality]
 ---

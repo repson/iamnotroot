@@ -3,7 +3,8 @@ title: IAM glossary
 description: A quick reference to the terms and abbreviations used throughout the handbook.
 category: fundamentals
 order: 99
-updated: 2026-10-14
+level: Foundational
+updated: 2026-10-18
 tags: [glossary, terminology, acronyms, IGA, PAM, CIAM, SSO, MFA]
 ---
 This glossary uses practical working definitions. A specification may define a term more narrowly; use that definition when implementing the specification.
@@ -51,6 +52,7 @@ This glossary uses practical working definitions. A specification may define a t
 | SoD | Separation of duties: preventing one subject from holding conflicting access. |
 | Least privilege | Granting only the access needed for a task, scope, and duration. |
 | JIT access | Just-in-time access: privileges activated for a limited time and removed automatically. |
+| ZSP | Zero standing privilege: no identity holds high-impact privileges permanently. |
 | Break-glass account | A monitored emergency account for use when normal access paths fail. |
 | Access certification | A periodic review in which owners confirm or revoke existing access. |
 | BOLA / IDOR | Broken object-level authorization: failing to check access to a specific object. |
@@ -80,8 +82,16 @@ This glossary uses practical working definitions. A specification may define a t
 | Token exchange | Trading one token for another with a different audience, scope, or actor (RFC 8693). |
 | LDAP | Lightweight Directory Access Protocol, for reading and modifying directories. |
 | Kerberos | A ticket-based network authentication protocol, central to Active Directory. |
+| KDC / TGT | Key Distribution Center / Ticket-Granting Ticket: the Kerberos server and the ticket it issues after sign-in, used to request service tickets. |
+| SPN | Service principal name: the identifier of a service in a Kerberos realm. |
+| NameID | The subject identifier in a SAML assertion, with a format such as persistent, transient, or email. |
+| SLO | SAML Single Logout: propagating logout to every participant in a SAML session. |
 | SSF / CAEP / RISC | Shared Signals Framework and its profiles for exchanging session and risk events. |
-| SPIFFE | A standard for workload identifiers and short-lived workload identity documents. |
+| SET | Security Event Token: a signed JWT carrying a security event (RFC 8417). |
+| AuthZEN | OpenID Foundation standard API between policy enforcement and decision points. |
+| SPIFFE / SVID | A standard for workload identifiers, and the short-lived identity document (X.509 or JWT) it issues. |
+| mTLS | Mutual TLS: both sides of a TLS connection authenticate with certificates. |
+| MCP | Model Context Protocol: a protocol for AI applications to call tools and data sources, with OAuth-based authorization. |
 | Zero Trust | An approach that evaluates each access request rather than trusting network location. |
 
 ## OAuth and OpenID Connect
@@ -89,6 +99,7 @@ This glossary uses practical working definitions. A specification may define a t
 | Term | Working definition |
 | --- | --- |
 | Authorization server (AS) | Issues tokens to clients after authenticating users and applying policy. |
+| OP | OpenID provider: an authorization server that also issues ID tokens; the OIDC name for an IdP. |
 | Resource server (RS) | The API that accepts and validates access tokens. |
 | Public / confidential client | A client that cannot / can keep a credential secret. |
 | `private_key_jwt` | Client authentication with a JWT signed by the client's private key. |
@@ -107,6 +118,7 @@ This glossary uses practical working definitions. A specification may define a t
 | Resource indicator | The `resource` parameter that requests a token for a specific API (RFC 8707). |
 | Protected Resource Metadata | A document describing an API's authorization servers and requirements (RFC 9728). |
 | Dynamic client registration | Clients registering themselves at the authorization server (RFC 7591). |
+| CIMD | Client ID Metadata Document: a `client_id` that is an HTTPS URL serving the client's metadata (IETF draft). |
 | CIBA | Client-Initiated Backchannel Authentication: authenticating the user on a separate device. |
 | Back-channel logout | The OP notifies RPs of logout by sending them a signed logout token directly. |
 | FAPI | OpenID Foundation security profiles for high-risk APIs such as open banking. |
@@ -120,6 +132,8 @@ This glossary uses practical working definitions. A specification may define a t
 | `HttpOnly` / `Secure` / `SameSite` | Cookie attributes that block script access, require HTTPS, and limit cross-site sending. |
 | Session fixation | Forcing a known session identifier on a victim; prevented by regenerating the ID at login. |
 | CSRF | Cross-site request forgery: another site triggering requests that carry the user's cookies. |
+| XSS | Cross-site scripting: attacker-controlled script running in a page's origin. |
+| CSP | Content Security Policy: a response header restricting which scripts and resources a page may load. |
 | DAC / MAC | Discretionary (owner-controlled) / mandatory (label-based, centrally enforced) access control. |
 | ACL | Access control list: permissions stored with each resource. |
 | PBAC | Policy-based access control: externalized, centrally managed authorization policies. |

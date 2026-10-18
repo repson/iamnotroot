@@ -3,6 +3,7 @@ title: Authentication and authorization
 description: Establishing who is acting and deciding what that subject may do.
 category: fundamentals
 order: 3
+level: Foundational
 updated: 2026-10-14
 tags: [authentication, authorization, AuthN, AuthZ, access control]
 ---
@@ -17,8 +18,8 @@ Maya signs in to an expenses application using a passkey. The application establ
 The successful sign-in does not answer whether she may approve that report. The application must evaluate her relationship to the report, any approval limit, the report's state, and the rule preventing self-approval.
 
 ```text
-Authentication: Can this claimant authenticate as account-81?
-Authorization:  May account-81 approve expense EXP-204 now?
+Authentication: Can this claimant authenticate as a-81?
+Authorization:  May a-81 approve expense EXP-204 now?
 ```
 
 ## Related steps

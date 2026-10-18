@@ -3,6 +3,7 @@ title: Identities, accounts, and credentials
 description: Three related concepts that should never be treated as interchangeable.
 category: fundamentals
 order: 2
+level: Foundational
 updated: 2026-10-14
 tags: [identity, account, credential, authenticator, subject]
 ---
@@ -32,9 +33,9 @@ An access token is a means of presenting authorization to a resource server. Rec
 
 ```mermaid
 flowchart TD
-    person["Person: Maya"] --> identity["Workforce identity: employee-1042"]
-    identity --> directory["Directory account: account-81"]
-    identity --> finance["Finance application account: account-357"]
+    person["Person: Maya"] --> identity["Workforce identity: p-1042"]
+    identity --> directory["Directory account: a-81"]
+    identity --> finance["Finance application account: a-357"]
     identity --> admin["Administrative account: admin-1042"]
 ```
 

@@ -3,6 +3,7 @@ title: A basic identity model
 description: Model subjects, accounts, attributes, and assignments before choosing a platform.
 category: identity-modeling
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [identity model, schema, identifiers, accounts, relationships]
 ---

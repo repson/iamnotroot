@@ -3,6 +3,7 @@ title: An IAM capability map
 description: A vendor-neutral checklist of what an IAM program needs to be able to do.
 category: capabilities
 order: 1
+level: Foundational
 updated: 2026-10-14
 tags: [capabilities, IGA, PAM, CIAM, operating model, roadmap]
 ---
